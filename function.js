@@ -5,7 +5,7 @@ class Generic{
     let onlyNumber = harga.substring(3)
     let number = onlyNumber.replace(/\./g,"")
     let correctNumber = parseInt(number)
-    return correctNumber
+    return correctNumber + 1
   }
 
   static cleanUpSpecialChar(nama_barang){
