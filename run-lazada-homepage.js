@@ -52,6 +52,7 @@ request({
     var priceValue = ($price.html()).trim();
     var priceTitle = $(this).find('.c-product-item__title').first().html()
     itemArray.push(new Item(priceTitle, priceValue))
+    console.log(priceValue)
   })
   for (let idx in itemArray){
     model.barangs.create({nama_barang: Generic.cleanUpSpecialChar(itemArray[idx]._title), harga_barang: Generic.convertHargatoInteger(itemArray[idx]._price), vendor_name: "Lazada"})
