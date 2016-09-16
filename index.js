@@ -2,15 +2,38 @@ var fs = require('fs')
 var cheerio = require('cheerio')
 var request = require('request')
 var csv = require('fast-csv')
+var model = require("./models/index")
+
+
+class Generic{
+  static convertHargatoInteger(harga){
+    let onlyNumber = harga.substring(3)
+    let number = onlyNumber.replace(/\./g,"")
+    let correctNumber = parseInt(number)
+    return correctNumber
+  }
+
+  static cleanUpSpecialChar(nama_barang){
+    nama_barang = nama_barang.replace(/&apos;/ig, "'")
+    nama_barang = nama_barang.replace(/&#x2019;/ig, "'")
+    nama_barang = nama_barang.replace(/&quot;/ig, "\"")
+    nama_barang = nama_barang.replace(/&amp;/ig, "&")
+    nama_barang = nama_barang.replace(/&#x2013;/ig, "-")
+    nama_barang = nama_barang.replace(/&#xE8;/ig, "e")
+    nama_barang = nama_barang.replace(/\r/ig," ")
+    nama_barang = nama_barang.replace(/\n/ig," ")
+    return nama_barang
+  }
+}
 
 //declaring containers
 let itemArray = []
-let inputToCSV = ""
+// let inputToCSV = ""
 
-//function to write a new file
-let createCSV = function (input){
-  fs.writeFile("result.csv", input,'utf8')
-}
+// //function to write a new file
+// let createCSV = function (input){
+//   fs.writeFile("result.csv", input,'utf8')
+// }
 
 class Item {
   constructor(title, price){
@@ -38,27 +61,16 @@ request({
     itemArray.push(new Item(priceTitle, priceValue))
   })
   for (let idx in itemArray){
-    //to not make a new row
-    itemArray[idx]._title = itemArray[idx]._title.replace(/\r/ig," ")
-    itemArray[idx]._title = itemArray[idx]._title.replace(/\n/ig," ")
-
-    //to make comma a different char so that it will not make a new column
-    inputToCSV = inputToCSV + itemArray[idx]._title.replace(/,/ig, "-")
-    inputToCSV = inputToCSV + ', ' + itemArray[idx]._price + '\n'
+    model.barangs.create({nama_barang: Generic.cleanUpSpecialChar(itemArray[idx]._title), harga_barang: Generic.convertHargatoInteger(itemArray[idx]._price)})
   }
 
-  //to modify special chars
-  inputToCSV = inputToCSV.replace(/&apos;/ig, "'")
-  inputToCSV = inputToCSV.replace(/&#x2019;/ig, "'")
-  inputToCSV = inputToCSV.replace(/&quot;/ig, "\"")
-  inputToCSV = inputToCSV.replace(/&amp;/ig, "&")
-  inputToCSV = inputToCSV.replace(/&#x2013;/ig, "-")
-  inputToCSV = inputToCSV.replace(/&#xE8;/ig, "e")
-
-
   console.log(itemArray)
-  createCSV(inputToCSV)
+  // createCSV(inputToCSV)
 })
+
+
+
+
 
 
 //how to append to a new row
