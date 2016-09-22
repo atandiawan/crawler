@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<head>
+</head>
+<body>
+  <a href = '/'>Back to Home</a><br><br>
+  Daftar Barang
+  <% for (let i in barang){ %>
+    <li>ID: <%= barang[i].id %> ||| Nama Barang: <%= barang[i].nama_barang.substring(0,20) %> ||| Harga Barang: <%= barang[i].harga_barang %> ||| Vendor Name: <%= barang[i].vendor_name %>
+  <% } %>
+  <br>
+</body>
+</html>

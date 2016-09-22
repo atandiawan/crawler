@@ -1,23 +1,13 @@
+'use-strict'
+var express = require('express')
+var app = express()
 var model = require("./models/index")
-var repl = require('repl')
+var routes = require('./routes/index.js')
 
-class Database{
-  static displayBarang(){
-    model.barangs.findAll().then(function(barang){
-      for (let i in barang){
-        console.log(barang[i].id," Nama Barang: ",barang[i].nama_barang.substring(0, 20), " , Harga Barang: RP", barang[i].harga_barang, " Vendor: ", barang[i].vendor_name);
-      }
-    })
-  }
+app.set('view-engine', 'ejs')
 
-  static addBarang(nama, harga, vendor){
-    model.barangs.create({nama_barang: nama, harga_barang: harga, vendor_name: vendor})
-  }
+app.listen(3000,function(){
+  console.log('listening on 3000')
+})
 
-  static removeBarang(id){
-    model.barangs.destroy({where: {id: id}})
-  }
-}
-
-var replServer = repl.start({prompt: ">"})
-replServer.context.Database = Database
+app.use('/', routes)
