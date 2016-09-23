@@ -1,0 +1,34 @@
+body{
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/*header*/
+#site-header .navbar {
+  border-radius: 0;
+  border: none;
+  margin: 0;
+  background: #360c11;
+  color: #e4e4e4;
+}
+
+/*main section*/
+#site-main {
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+
+/*footer*/
+footer{
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 12px;
+  background: #360c11;
+  color: #e4e4e4;
+}
+
+.jumbotron{
+  margin-bottom: 0;
+  background: #ffffff;
+}

@@ -1,0 +1,46 @@
+  <% if (success.length > 0) { %>
+    <div class="alert alert-success"><%= success %></div>
+  <% } %>
+
+  <div class="row">
+    <div class="col-md-1">
+        <a href="/datas/add" class="btn btn-lg btn-success">Add</a>
+    </div>
+    
+    <div class="col-md-1">
+      <div class="dropdown">
+      <button class="btn btn-lg btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Import
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="/datas/import/elevenia">Elevenia</a></li>
+        <li><a href="/datas/import/lazada">Lazada</a></li>
+      </ul>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-bordered table-hover table-striped" style="margin-top: 20px">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Vendor</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% for (var data of datas) { %>
+        <tr>
+          <td><%= data.name %></td>
+          <td>Rp. <%= data.price %></td>
+          <td><%= data.vendor %></td>
+          <td>
+            <a href="/datas/<%= data.slug %>" class="btn btn-sm btn-primary">View</a> &nbsp;
+            <a href="/datas/<%= data.slug %>/edit" class="btn btn-sm btn-warning">Edit</a> &nbsp;
+            <a href="/datas/<%= data.slug %>/delete" class="btn btn-sm btn-danger">Delete</a>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
